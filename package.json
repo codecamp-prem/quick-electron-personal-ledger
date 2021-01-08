@@ -1,0 +1,24 @@
+{
+  "name": "ledger_destination",
+  "version": "1.0.0",
+  "description": "Elctron App for Ledger",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "install-app-deps",
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Prem Bikram Limbu",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^3.0.16",
+    "electron-builder": "^21.0.15",
+    "electron-reloader": "^1.1.0"
+  },
+  "dependencies": {
+    "md5": "^2.3.0",
+    "mysql": "^2.18.1",
+    "routes": "^2.1.0",
+    "sqlite3": "^4.0.6"
+  }
+}

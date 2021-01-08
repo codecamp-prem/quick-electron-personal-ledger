@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./src/css/bootstrap.min.css" >
+    <!--CSS-->
+    <link rel="stylesheet" href="./src/css/index.css">
+    <title>Destination Travels & Tours</title>
+    
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+              <div class="card-body">
+                <h5 class="card-title text-center">Sign In</h5>
+                <form class="form-signin" id="login-form" name="login-form" onSubmit="JavaScript:sendLoginForm(event)">
+                  <div class="form-label-group">
+                    <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                    <div class="alert alert-warning" role="alert" id="alert-email-error" style="display:none;">
+                      Please enter the Valid Email!.
+                    </div>
+                    <label for="inputEmail">Email address</label>
+                  </div>
+    
+                  <div class="form-label-group">
+                    <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <div class="alert alert-warning" role="alert" id="alert-pswd-error" style="display:none;">
+                      Please enter the Password!.
+                    </div>
+                    <label for="inputPassword">Password</label>
+                  </div>
+    
+                  <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label" for="customCheck1">Remember password</label>
+                  </div>
+                  <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" onclick="validate();">Sign in</button>
+                  <hr class="my-4">
+                  <!-- <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+                  <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> -->
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <script src="./src/js/jquery-3.3.1.min.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="./src/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="./src/js/popper.min.js"></script>
+    <script src="./src/js/bootstrap.min.js"></script>
+
+    <script>
+      $("input[name='inputEmail']").on('input', function() {
+        checkEmail($(this).val());
+      });
+      $("input[name='inputPassword']").on('input', function() {
+        checkPswd($(this).val());
+      });
+      
+      function checkEmail(email) {
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email)) {
+          $('#alert-email-error').show("slow");
+          document.getElementById('inputEmail').focus;
+          return false;
+        }else{
+          $('#alert-email-error').hide("slow");
+          return true;
+        } 
+      }
+
+      function checkPswd(password){
+        if (password==null || password=="") {
+          $('#alert-pswd-error').show("slow");
+          document.getElementById('inputPassword').focus;
+          return false;
+        }else{
+          $('#alert-pswd-error').hide("slow");
+          return true;
+        }
+      }
+
+      function validate() {
+         var email = $.trim($('#inputEmail').val());
+         var password =$.trim($('#inputPassword').val());
+            if (!checkEmail(email)) {
+                return false;
+            }
+            if (!checkPswd(password)) {
+                return false;
+            }  
+       } 
+      </script>
+      <script src='./renderFile.js'></script>
+      <script>
+        // Require ipcRenderer
+        //const { ipcRenderer } = require('electron');
+
+        // When the action-update-label event is triggered (from the main process)
+        // Do something in the view
+        ipcRenderer.on('action-error-index', (event, arg) => {
+            // Update the second interface or whatever you need to do
+            // for example show an alert ...
+            alert('Login details Wrong!');
+            document.getElementById('inputEmail').focus;
+            // arg contains the data sent from the first view
+            console.log(arg);
+        });
+      </script>
+  </body>
+</html>
